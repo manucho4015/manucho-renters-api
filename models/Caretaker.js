@@ -46,4 +46,9 @@ CaretakerSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
+CaretakerSchema.methods.comparePassword = async function (candidatePassword) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password);
+  return isMatch;
+};
+
 module.exports = mongoose.model("Caretaker", CaretakerSchema);
