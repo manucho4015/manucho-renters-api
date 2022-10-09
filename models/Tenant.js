@@ -1,4 +1,8 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const TenantSchema = new mongoose.Schema(
   {
@@ -51,5 +55,10 @@ const TenantSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+TenantSchema.pre("save", async function () {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
 module.exports = mongoose.model("Tenant", TenantSchema);
