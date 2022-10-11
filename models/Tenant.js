@@ -46,6 +46,12 @@ const TenantSchema = new mongoose.Schema(
       enum: ["up to date", "oderdue"],
       default: "up to date",
     },
+    landlord: {
+      type: mongoose.Types.ObjectId,
+      ref: "Landlord",
+      required: [true, "Please provide caretaker"],
+      default: "63459035cf56e9dc96f6aea4",
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "Caretaker",
