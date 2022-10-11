@@ -37,7 +37,7 @@ LandlordSchema.pre("save", async function () {
 
 LandlordSchema.methods.createJWT = function () {
   return jwt.sign(
-    { userId: this._id, name: this.name },
+    { landlordId: this._id, name: this.name },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME }
   );
